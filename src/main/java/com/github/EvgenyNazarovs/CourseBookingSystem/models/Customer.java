@@ -24,7 +24,7 @@ public class Customer {
     private int age;
 
     @JsonBackReference
-    @OneToMany
+    @OneToMany(mappedBy = "customer")
     private List<Booking> bookings;
 
     public Customer(String name, String town, int age) {

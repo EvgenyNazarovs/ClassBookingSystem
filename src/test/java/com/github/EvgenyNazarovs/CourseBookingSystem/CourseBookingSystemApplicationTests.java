@@ -2,8 +2,10 @@ package com.github.EvgenyNazarovs.CourseBookingSystem;
 
 import com.github.EvgenyNazarovs.CourseBookingSystem.models.Booking;
 import com.github.EvgenyNazarovs.CourseBookingSystem.models.Course;
+import com.github.EvgenyNazarovs.CourseBookingSystem.models.Customer;
 import com.github.EvgenyNazarovs.CourseBookingSystem.repositories.BookingRepository;
 import com.github.EvgenyNazarovs.CourseBookingSystem.repositories.CourseRepository;
+import com.github.EvgenyNazarovs.CourseBookingSystem.repositories.CustomerRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,9 @@ class CourseBookingSystemApplicationTests {
 	@Autowired
 	BookingRepository bookingRepository;
 
+	@Autowired
+	CustomerRepository customerRepository;
+
 
 	@Test
 	void contextLoads() {
@@ -39,6 +44,12 @@ class CourseBookingSystemApplicationTests {
 	public void canGetBookingsByDate() {
 		List<Booking> found = bookingRepository.findByDate("20-06-2020");
 		assertEquals(1, found.size());
+	}
+
+	@Test
+	public void canGetCustomersByBookingsCourse() {
+		List<Customer> found = customerRepository.findByBookingsCourseName("React");
+		assertEquals(2, found.size());
 	}
 
 
