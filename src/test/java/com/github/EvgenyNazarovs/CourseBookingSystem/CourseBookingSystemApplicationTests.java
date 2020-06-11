@@ -71,6 +71,12 @@ class CourseBookingSystemApplicationTests {
 		assertEquals(1, found.size());
 	}
 
+//	@Test
+//	public void canGetCustomer() {
+//		Customer customer = customerRepository.findById(1L);
+//
+//	}
+
 
 
 }

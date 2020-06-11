@@ -5,12 +5,11 @@ import com.github.EvgenyNazarovs.CourseBookingSystem.repositories.CustomerReposi
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import sun.misc.Request;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class CustomerController {
@@ -36,6 +35,29 @@ public class CustomerController {
         return new ResponseEntity<>(customerRepository.findAll(), HttpStatus.OK);
     }
 
-    @GetMapping
+    @GetMapping(value = "/customers/{id}")
+    public ResponseEntity getCustomer(@PathVariable Long id) {
+        return new ResponseEntity<>(customerRepository.findById(id), HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/customers")
+    public ResponseEntity<Customer> postCustomer(@RequestBody Customer customer) {
+        customerRepository.save(customer);
+        return new ResponseEntity<>(customer, HttpStatus.CREATED);
+    }
+
+    @PutMapping(value = "/customers/{id}")
+    public ResponseEntity<Customer> putCustomer(@PathVariable(value = "id") Long id, @RequestBody Customer customerDetails) {
+        Customer customer = customerRepository.findById(id).get();
+        customer.setName(customerDetails.getName());
+        customer.setAge(customerDetails.getAge());
+        customer.setTown(customerDetails.getTown());
+        customerRepository.save(customer);
+        return new ResponseEntity<>(customer, HttpStatus.OK);
+    }
+
+
+
+
 
 }
